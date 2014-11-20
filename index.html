@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title> Regex Tester </title>
+
+	<!-- Bootstrap, to allow me to focus on the functionality first, then the design -->
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+	<!-- jQuery, because Bootstrap needs it -->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+	<!-- Extra style -->
+	<link rel="stylesheet" type="text/css" href="public/style.css">
+	<!-- Extra JS code (event handlers and such) -->
+	<script type="text/javascript" src="public/app.js"></script>
+	
+</head>
+<body>
+	<div id="content" class="full-height"> 
+		<header>
+			<h1 class="middle"> Regex Test tool </h1>
+		</header>
+		<div id="main" class="jumbotron fit-parent">
+			<div id="textareas">
+				<label class="full-width"> 
+					<textarea id="regex" placeholder="Enter your regex here"></textarea>
+				</label>
+				<br/>
+				<!-- checkboxes for /i, /m -->
+				<div id="options" class="middle">
+					<div id="options_case_insensitive">
+						<label>
+						<input type="checkbox" class="hidden" id="options_case_insensitive_checkbox" value="/i"> 	<div class="round-button" id="options_case_insensitive_round">
+						 
+							</div>
+							Case insensitive search (/i)
+						</label>
+					</div>
+					<div id="options_search_multilines">
+						<label>
+						<input type="checkbox" class="hidden" id="options_search_multilines_checkbox" value="/m">
+							Search every line separately (/m)
+						</label>
+					</div>
+					<br/>
+				</div>
+				<label class="full-width">
+					<textarea id="text" placeholder="Enter your text here"></textarea>
+				</label>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
