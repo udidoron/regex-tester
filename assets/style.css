@@ -1,14 +1,17 @@
 body {
 	margin: 90px;
-}
-
-label {
-	background-color: transparent;
+	font-family: Arial, Helvetica;
 }
 
 textarea {
 	width: 99%;
 	margin: 5px;
+}
+
+div[contenteditable="true"] {
+	background-color: white;
+	margin: 5px;
+	border: 1px gray ridge;
 }
 
 .middle {
@@ -43,4 +46,9 @@ textarea {
 	max-height: inherit;
 	overflow: auto;
 	height: 44vh;
+	z-index: 2;
+}
+
+#inputBg {
+	z-index: 1;
 }

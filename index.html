@@ -4,6 +4,11 @@
 	<meta charset="utf-8" />
 	<title> Regex Tester </title>
 
+	<!-- External resources -->
+
+	<!-- jQuery, because Bootstrap needs it -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
 	<!-- Bootstrap, to allow me to focus on the functionality first, then the design -->
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
@@ -14,8 +19,6 @@
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
-	<!-- jQuery, because Bootstrap needs it -->
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
 	<!-- Extra style -->
 	<link rel="stylesheet" type="text/css" href="assets/style.css">
@@ -31,7 +34,7 @@
 		<div id="main" class="jumbotron fit-parent">
 			<div id="textareas">
 				<label class="full-width"> 
-					<textarea id="regex" placeholder="Enter your regex here"></textarea>
+					<textarea id="regex" spellcheck="false" placeholder="Enter your regex here"></textarea>
 				</label>
 				<br/>
 				<!-- checkboxes for /i, /m -->
@@ -51,8 +54,12 @@
 					<br/>
 				</div>
 				<label class="full-width">
-					<textarea id="text" placeholder="Enter your text here"></textarea>
+					<div id="text" contenteditable="true">
+						Enter your text here.
+					</div>
 				</label>
+				<br/>
+				<button onclick="initiate()"> Initiate </button>
 			</div>
 		</div>
 	</div>
