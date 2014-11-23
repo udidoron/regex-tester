@@ -18,15 +18,15 @@
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
 	<!-- Extra style -->
-	<link rel="stylesheet" type="text/css" href="public/style.css">
+	<link rel="stylesheet" type="text/css" href="assets/style.css">
 	<!-- Extra JS code (event handlers and such) -->
-	<script type="text/javascript" src="public/app.js"></script>
+	<script type="text/javascript" src="assets/app.js"></script>
 	
 </head>
 <body>
 	<div id="content" class="full-height"> 
 		<header>
-			<h1 class="middle"> Regex Test tool </h1>
+			<h1 class="middle page-header"> Regex Test Tool </h1>
 		</header>
 		<div id="main" class="jumbotron fit-parent">
 			<div id="textareas">
@@ -38,15 +38,13 @@
 				<div id="options" class="middle">
 					<div id="options_case_insensitive">
 						<label>
-						<input type="checkbox" class="hidden" id="options_case_insensitive_checkbox" value="/i"> 	<div class="round-button" id="options_case_insensitive_round">
-						 
-							</div>
+						<input type="checkbox" id="options_case_insensitive_checkbox" value="/i" checked>
 							Case insensitive search (/i)
 						</label>
 					</div>
 					<div id="options_search_multilines">
 						<label>
-						<input type="checkbox" class="hidden" id="options_search_multilines_checkbox" value="/m">
+						<input type="checkbox" id="options_search_multilines_checkbox" value="/m">
 							Search every line separately (/m)
 						</label>
 					</div>

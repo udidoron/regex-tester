@@ -2,6 +2,15 @@ body {
 	margin: 90px;
 }
 
+label {
+	background-color: transparent;
+}
+
+textarea {
+	width: 99%;
+	margin: 5px;
+}
+
 .middle {
 	padding-left: 41%;
 	padding-right: 40%;
@@ -20,13 +29,10 @@ body {
 	width: inherit;
 }
 
-label {
-	background-color: transparent;
-}
+.round-button {
+	border: 1px solid blue;
+	border-radius: 50px;
 
-textarea {
-	width: 99%;
-	margin: 5px;
 }
 
 #regex {
@@ -37,14 +43,4 @@ textarea {
 	max-height: inherit;
 	overflow: auto;
 	height: 44vh;
-}
-
-.hidden {
-	display: none;
-}
-
-.round-button {
-	border: 1px solid blue;
-	border-radius: 50px;
-	
 }
