@@ -83,10 +83,11 @@ $(document).ready(function() {
 				arr.push(exec);
 				exec = testedRegex.exec($("#text").text());
 			}
-			if (arr.length>0) {
-				// colorTextBackground(arr);
-				console.log(arr);
-			}
+			console.log(arr);
+			// if (arr.length>0) {
+			// 	// colorTextBackground(arr);
+			// 	console.log(arr);
+			// }
 		}
 	}
 
