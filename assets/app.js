@@ -1,5 +1,9 @@
 $(document).ready(function() {
 	var clickedText = false;
+	var startingTextSpan = "<span id='startingText'>Enter your text here. </span>";
+	if (!clickedText) {
+		$("#text").html(startingTextSpan);
+	}
 	$("#text").click(function(e) {
 		if (!clickedText) {
 			$("#text").html("");
@@ -8,7 +12,7 @@ $(document).ready(function() {
 	});
 	$(document).click(function(e) {
 		if (e.target.id != "text" && $("#text").text().trim() == "") {
-			$("#text").text("Enter your text here.");
+			$("#text").html(startingTextSpan);
 			clickedText=false;
 		}
 	})

@@ -14,6 +14,15 @@ div[contenteditable="true"] {
 	border: 1px gray ridge;
 }
 
+span .highlighted {
+	background-color: yellow;
+	color: white;
+}
+
+#startingText {
+	color: grey;
+}
+
 .middle {
 	padding-left: 41%;
 	padding-right: 40%;
