@@ -63,19 +63,43 @@ $(document).ready(function() {
     	return str.substr(0, index) + replacement + str.substr(index+replacement.length);
 	}
 
-	function colorTextBackground(testedRegex, matchesArr) {
-		var currentText = $("#text").text();
-		var htmlString = currentText;
-		for (var match in matchesArr) {
-			var replacement = "<span class='highlighted'>"+match[0]+"</span>";
-			htmlString = replaceAt(htmlString, match.index, replacement);
-		}
-		$("#text").html(htmlString);
-		// htmlString.repl
-		// for (var arrayIndex=0; arrayIndex<matchesArr.length; arrayIndex++) {
-		// 	htmlString.
-		// }
+	function colorTextBackground(regex, matchesArr) {
+		var currText = $("#text").text();
+		matchesArr.forEach(function(match) {
+			var spanCode="<span class='highlight'>"+match[0]+"</span>";
+			$("#text").html(currText.replace(regex, spanCode));
+		});
+		// var currentText = $("#text").text();
+		// var htmlString = currentText;
+		// var resString = "";
+		// console.log("matchesArr: ", matchesArr);
+		// matchesArr.forEach(function(match, arrIndex) {
+		// 	console.log("htmlString pre-replacement: ", htmlString);
+		// 	console.log("match: 0="+match[0]+", index="+match["index"]);
+		// 	var replacement = "<span class='highlighted'>"+match[0]+"</span>";
+		// 	resString = replaceAt(htmlString, match["index"], replacement);
+			
+		// 	console.log("htmlString post replacement number "+arrIndex+": ", htmlString);
+		// });
+		// // for (var match in matchesArr) {
+		// // 	console.log("match:", matchesArr[match]);
+		// // 	var replacement = "<span class='highlighted'>"+matchesArr[match][0]+"</span>";
+		// // 	htmlString = replaceAt(htmlString, matchesArr[match].index, replacement);
+		// // }
+		// console.log(htmlString);
+		// $("#text").html(htmlString);
+		// // htmlString.repl
+		// // for (var arrayIndex=0; arrayIndex<matchesArr.length; arrayIndex++) {
+		// // 	htmlString.
+		// // }
 	}
+
+	// function colorBackground(match) {
+	// 	var htmlString=$("#text").html();
+
+	// }
+
+	//dfdd, reg='d' --> <sp>d</sp>f<sp>d</sp><sp>d</sp>
 
 	function checkRegex(id) {
 		if (!testedRegex && id !== "regex") return; //no regex yet
@@ -102,7 +126,7 @@ $(document).ready(function() {
 				arr.push(exec);
 				exec = testedRegex.exec($("#text").text());
 			}
-			colorTextBackground(testedRegex);
+			colorTextBackground(testedRegex, arr);
 			// if (arr.length>0) {
 			// 	// colorTextBackground(arr);
 			// 	console.log(arr);
