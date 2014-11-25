@@ -58,6 +58,25 @@ $(document).ready(function() {
 		}
 	});
 
+	//Utility function: replace part of string at given index
+	function replaceAt(str, index, replacement) {
+    	return str.substr(0, index) + replacement + str.substr(index+replacement.length);
+	}
+
+	function colorTextBackground(testedRegex, matchesArr) {
+		var currentText = $("#text").text();
+		var htmlString = currentText;
+		for (var match in matchesArr) {
+			var replacement = "<span class='highlighted'>"+match[0]+"</span>";
+			htmlString = replaceAt(htmlString, match.index, replacement);
+		}
+		$("#text").html(htmlString);
+		// htmlString.repl
+		// for (var arrayIndex=0; arrayIndex<matchesArr.length; arrayIndex++) {
+		// 	htmlString.
+		// }
+	}
+
 	function checkRegex(id) {
 		if (!testedRegex && id !== "regex") return; //no regex yet
 
@@ -83,7 +102,7 @@ $(document).ready(function() {
 				arr.push(exec);
 				exec = testedRegex.exec($("#text").text());
 			}
-			console.log(arr);
+			colorTextBackground(testedRegex);
 			// if (arr.length>0) {
 			// 	// colorTextBackground(arr);
 			// 	console.log(arr);
