@@ -58,10 +58,10 @@ $(document).ready(function() {
 		}
 	});
 
-	//Utility function: replace part of string at given index
-	function replaceAt(str, index, replacement) {
-    	return str.substr(0, index) + replacement + str.substr(index+replacement.length);
-	}
+	// //Utility function: replace part of string at given index
+	// function replaceAt(str, index, replacement) {
+ //    	return str.substr(0, index) + replacement + str.substr(index+replacement.length);
+	// }
 
 	function doReplacement(matchesArr) {
 		var textIndex=0,
@@ -69,22 +69,25 @@ $(document).ready(function() {
 			matchArrayCopy = matchesArr, 
 			returnedString = "";
 
+		console.log("text before replacement: ", startingText);
 		console.log("matchArrayCopy:", matchArrayCopy);
 
 		var currMatchIndex=0;
 		for (var textIndex=0; textIndex<startingText.length; textIndex++) {
-			if (matchArrayCopy.length > 0) {
-				if (matchArrayCopy[textIndex]["index"] == textIndex) {
+			if (matchArrayCopy[currMatchIndex]) {
+				if (matchArrayCopy[currMatchIndex]["index"] == textIndex) {
 					//we've got a match
 					var currMatchString = matchArrayCopy[currMatchIndex][0];
 					currMatchIndex++;
 					currMatchString="<span class='highlight'>"+currMatchString+"</span>";
 					returnedString += currMatchString;
 				} else {
+					console.log("no match");
 					returnedString += startingText[textIndex];
 				}
 			}
 		}
+		console.log("coloring..");
 		$("#text").html(returnedString);
 
 
@@ -166,7 +169,9 @@ $(document).ready(function() {
 				arr.push(exec);
 				exec = testedRegex.exec($("#text").text());
 			}
-			doReplacement(arr);
+			if (id === "text") {
+				doReplacement(arr);
+			}
 			// colorTextBackground(testedRegex, arr);
 			// if (arr.length>0) {
 			// 	// colorTextBackground(arr);
