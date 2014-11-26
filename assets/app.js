@@ -74,13 +74,17 @@ $(document).ready(function() {
 
 		var currMatchIndex=0;
 		for (var textIndex=0; textIndex<startingText.length; textIndex++) {
+			console.log("textIndex: ", textIndex);
 			if (matchArrayCopy[currMatchIndex]) {
 				if (matchArrayCopy[currMatchIndex]["index"] == textIndex) {
 					//we've got a match
+					console.log("match");
 					var currMatchString = matchArrayCopy[currMatchIndex][0];
+					textIndex += matchArrayCopy[currMatchIndex][0].length-1; //we've already entered one character
 					currMatchIndex++;
 					currMatchString="<span class='highlight'>"+currMatchString+"</span>";
 					returnedString += currMatchString;
+
 				} else {
 					console.log("no match");
 					returnedString += startingText[textIndex];
@@ -89,6 +93,8 @@ $(document).ready(function() {
 		}
 		console.log("coloring..");
 		$("#text").html(returnedString);
+		console.log("Returned string:");
+		console.log(returnedString);
 
 
 
