@@ -63,6 +63,46 @@ $(document).ready(function() {
     	return str.substr(0, index) + replacement + str.substr(index+replacement.length);
 	}
 
+	function doReplacement(matchesArr) {
+		var textIndex=0,
+			startingText=$("#text").text(),
+			matchArrayCopy = matchesArr, 
+			returnedString = "";
+
+		console.log("matchArrayCopy:", matchArrayCopy);
+
+		var currMatchIndex=0;
+		for (var textIndex=0; textIndex<startingText.length; textIndex++) {
+			if (matchArrayCopy.length > 0) {
+				if (matchArrayCopy[textIndex]["index"] == textIndex) {
+					//we've got a match
+					var currMatchString = matchArrayCopy[currMatchIndex][0];
+					currMatchIndex++;
+					currMatchString="<span class='highlight'>"+currMatchString+"</span>";
+					returnedString += currMatchString;
+				} else {
+					returnedString += startingText[textIndex];
+				}
+			}
+		}
+		$("#text").html(returnedString);
+
+
+
+			// matchArrayCopy = matchesArr, visitedMatchArray = []
+			// returnedString = ""
+			// as long as textIndex<length of starting text:
+			// if matchesArr[0].index == textIndex: 
+			// 	pop matchArrayCopy[0] into currMatch
+			// 	get matching text from currMatch
+			// 	construct html string for match, into matchString
+			// 	returnedString += matchString
+			// else:
+			// 	returnedString += startingText[textIndex]
+			// textIndex++
+
+	}
+
 	function colorTextBackground(regex, matchesArr) {
 		var currText = $("#text").text();
 		matchesArr.forEach(function(match) {
@@ -126,7 +166,8 @@ $(document).ready(function() {
 				arr.push(exec);
 				exec = testedRegex.exec($("#text").text());
 			}
-			colorTextBackground(testedRegex, arr);
+			doReplacement(arr);
+			// colorTextBackground(testedRegex, arr);
 			// if (arr.length>0) {
 			// 	// colorTextBackground(arr);
 			// 	console.log(arr);
