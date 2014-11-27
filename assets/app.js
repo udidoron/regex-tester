@@ -6,18 +6,12 @@ $(document).ready(function() {
 		var jqId = "#"+id; //I hate reusing quote marks and plus signs
 		$(jqId).html(spanCode);
 
-		$(jqId).click(function() {
+		$(jqId).on('focus', function() {
 			if (!clickedArea) {
 				$(jqId).html("");
 				clickedArea=true;
 			}
-		});
-
-		$(jqId).keypress(function() {
-			if ($(this).children(".startingText").size()>0) {
-				$(this).html("");				
-			}
-		});
+		})
 
 		$(document).click(function(e) {
 			if (e.target.id !== id && $.trim($(jqId).text()) == "") {
@@ -63,7 +57,29 @@ $(document).ready(function() {
  //    	return str.substr(0, index) + replacement + str.substr(index+replacement.length);
 	// }
 
+	//Places the caret (pointer) at the end of the contenteditable div.
+	//Taken (stolen) from StackOverflow
+	function placeCaretAtEnd(el) {
+	    el.focus();
+	    if (typeof window.getSelection != "undefined"
+	            && typeof document.createRange != "undefined") {
+	        var range = document.createRange();
+	        range.selectNodeContents(el);
+	        range.collapse(false);
+	        var sel = window.getSelection();
+	        sel.removeAllRanges();
+	        sel.addRange(range);
+	    } else if (typeof document.body.createTextRange != "undefined") {
+	        var textRange = document.body.createTextRange();
+	        textRange.moveToElementText(el);
+	        textRange.collapse(false);
+	        textRange.select();
+	    }
+	}
+
+
 	function doReplacement(matchesArr) {
+		console.log("Entered doReplacement");
 		var textIndex=0,
 			startingText=$("#text").text(),
 			matchArrayCopy = matchesArr, 
@@ -90,11 +106,17 @@ $(document).ready(function() {
 					returnedString += startingText[textIndex];
 				}
 			}
+			else {
+				console.log("no match (didn't enter if)");
+				returnedString += startingText[textIndex];
+			}
 		}
 		console.log("coloring..");
 		$("#text").html(returnedString);
 		console.log("Returned string:");
 		console.log(returnedString);
+		$("#text").focus();
+		placeCaretAtEnd(document.getElementById('text'));
 
 
 
