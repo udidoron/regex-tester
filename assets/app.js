@@ -48,15 +48,11 @@ $(document).ready(function() {
 
 	$("#regex").blur(function() {
 		regexChanged=true;
-		if ($.trim($(this).text()) !== "") {
+		if (($(this).text()) !== "") {
 			testedRegex=true; //it's kinda ugly, I know
 		}
 	});
 
-	// //Utility function: replace part of string at given index
-	// function replaceAt(str, index, replacement) {
- //    	return str.substr(0, index) + replacement + str.substr(index+replacement.length);
-	// }
 
 	//Places the caret (pointer) at the end of the contenteditable div.
 	//Taken (stolen) from StackOverflow
@@ -78,6 +74,11 @@ $(document).ready(function() {
 	    }
 	}
 
+	//Changes spaces to &nbsp (ugly..but $(elem).html removes them).
+	//Kickass regex was taken from http://stackoverflow.com/questions/24256200/replace-all-spaces-except-the-ones-with-in-html-tags
+	function spaceToNbsp(str) {
+    	return str.replace(/ (?![^<]*>)/g, "&nbsp;");
+	}
 
 	function doReplacement(matchesArr, elementChanged) {
 		console.log("Entered doReplacement");
@@ -113,6 +114,7 @@ $(document).ready(function() {
 			}
 		}
 		console.log("coloring..");
+		returnedString=spaceToNbsp(returnedString); //fixing spaces problem
 		$("#text").html(returnedString);
 		console.log("Returned string:");
 		console.log(returnedString);
@@ -128,7 +130,10 @@ $(document).ready(function() {
 		if (!textChanged) { return; }
 		else { prevText = $("#text").text(); }
 
+		console.log("Text at start of checkRegex:", $("#text").text());
+
 		if (regexChanged || modifiersChanged) {
+			console.log("entered first if");
 			//checking for /i, /m
 			modifiers="g";
 			if ($(iCheckboxJqId).prop("checked")) {modifiers += "i"};
@@ -137,12 +142,17 @@ $(document).ready(function() {
 			//retrieving regex pattern and creating regex
 			var pattern = $("#regex").text();
 			if (pattern!=="") {
+				//fixing \-at-end problem (crashes the regex, thus the script)
+				if (/\\{1}$/i.test(pattern)) { 
+					return; 
+				}
 				testedRegex = new RegExp(pattern, modifiers);
 				regexChanged = modifiersChanged = false;
 			}
 		}
 
 		if (!regexChanged) {
+			console.log("entered second if");
 			var jqId = "#"+id;
 			var exec = testedRegex.exec($("#text").text());
 			var arr = [];
