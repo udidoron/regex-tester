@@ -14,7 +14,7 @@ $(document).ready(function() {
 		})
 
 		$(document).click(function(e) {
-			if (e.target.id !== id && $.trim($(jqId).text()) == "") {
+			if (e.target.id !== id && ($(jqId).text()) == "") {
 				$(jqId).html(spanCode);
 				clickedArea=false;
 			}
@@ -33,6 +33,7 @@ $(document).ready(function() {
 	var modifiers = "g";
 	var regexChanged = false;
 	var modifiersChanged = false;
+	var prevText = "";
 
 	//Tiny bit of optimization code (yeah yeah, root of all evil, I know)
 	var iCheckboxJqId = "#options_case_insensitive_checkbox";
@@ -78,7 +79,7 @@ $(document).ready(function() {
 	}
 
 
-	function doReplacement(matchesArr) {
+	function doReplacement(matchesArr, elementChanged) {
 		console.log("Entered doReplacement");
 		var textIndex=0,
 			startingText=$("#text").text(),
@@ -115,65 +116,17 @@ $(document).ready(function() {
 		$("#text").html(returnedString);
 		console.log("Returned string:");
 		console.log(returnedString);
-		$("#text").focus();
-		placeCaretAtEnd(document.getElementById('text'));
-
-
-
-			// matchArrayCopy = matchesArr, visitedMatchArray = []
-			// returnedString = ""
-			// as long as textIndex<length of starting text:
-			// if matchesArr[0].index == textIndex: 
-			// 	pop matchArrayCopy[0] into currMatch
-			// 	get matching text from currMatch
-			// 	construct html string for match, into matchString
-			// 	returnedString += matchString
-			// else:
-			// 	returnedString += startingText[textIndex]
-			// textIndex++
-
+		if (elementChanged === "text") {
+			placeCaretAtEnd(document.getElementById('text'));	
+		}
 	}
-
-	function colorTextBackground(regex, matchesArr) {
-		var currText = $("#text").text();
-		matchesArr.forEach(function(match) {
-			var spanCode="<span class='highlight'>"+match[0]+"</span>";
-			$("#text").html(currText.replace(regex, spanCode));
-		});
-		// var currentText = $("#text").text();
-		// var htmlString = currentText;
-		// var resString = "";
-		// console.log("matchesArr: ", matchesArr);
-		// matchesArr.forEach(function(match, arrIndex) {
-		// 	console.log("htmlString pre-replacement: ", htmlString);
-		// 	console.log("match: 0="+match[0]+", index="+match["index"]);
-		// 	var replacement = "<span class='highlighted'>"+match[0]+"</span>";
-		// 	resString = replaceAt(htmlString, match["index"], replacement);
-			
-		// 	console.log("htmlString post replacement number "+arrIndex+": ", htmlString);
-		// });
-		// // for (var match in matchesArr) {
-		// // 	console.log("match:", matchesArr[match]);
-		// // 	var replacement = "<span class='highlighted'>"+matchesArr[match][0]+"</span>";
-		// // 	htmlString = replaceAt(htmlString, matchesArr[match].index, replacement);
-		// // }
-		// console.log(htmlString);
-		// $("#text").html(htmlString);
-		// // htmlString.repl
-		// // for (var arrayIndex=0; arrayIndex<matchesArr.length; arrayIndex++) {
-		// // 	htmlString.
-		// // }
-	}
-
-	// function colorBackground(match) {
-	// 	var htmlString=$("#text").html();
-
-	// }
-
-	//dfdd, reg='d' --> <sp>d</sp>f<sp>d</sp><sp>d</sp>
 
 	function checkRegex(id) {
 		if (!testedRegex && id !== "regex") return; //no regex yet
+
+		var textChanged = ($("#text").text() != prevText);
+		if (!textChanged) { return; }
+		else { prevText = $("#text").text(); }
 
 		if (regexChanged || modifiersChanged) {
 			//checking for /i, /m
@@ -183,7 +136,7 @@ $(document).ready(function() {
 
 			//retrieving regex pattern and creating regex
 			var pattern = $("#regex").text();
-			if ($.trim(pattern)!=="") {
+			if (pattern!=="") {
 				testedRegex = new RegExp(pattern, modifiers);
 				regexChanged = modifiersChanged = false;
 			}
@@ -197,13 +150,9 @@ $(document).ready(function() {
 				arr.push(exec);
 				exec = testedRegex.exec($("#text").text());
 			}
-			if (id === "text") {
-				doReplacement(arr);
-			}
-			// colorTextBackground(testedRegex, arr);
-			// if (arr.length>0) {
-			// 	// colorTextBackground(arr);
-			// 	console.log(arr);
+			doReplacement(arr, id);
+			// if (id === "text") {
+			// 	doReplacement(arr);
 			// }
 		}
 	}
